@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Shibboleth Demo App</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 40px auto;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1a73e8;
+            margin-top: 0;
+        }
+
+        .info {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        pre {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            border: 1px solid #e9ecef;
+        }
+
+        .logout {
+            display: inline-block;
+            margin-top: 20px;
+            color: #d93025;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .logout:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Shibboleth Demo Frontend</h1>
+        <div class="info">
+            <p>This page is served by Nginx (Frontend Service), protected by Apache+Shibboleth (SP).</p>
+            <p><strong>Authentication Status:</strong> Authenticated via IDP.</p>
+        </div>
+
+        <h2>User Attributes (from Backend API)</h2>
+        <div id="api-response">Loading user data...</div>
+
+        <a href="/Shibboleth.sso/Logout" class="logout">Logout</a>
+    </div>
+
+    <script>
+        fetch('/api/user')
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(data => {
+                document.getElementById('api-response').innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            })
+            .catch(error => {
+                document.getElementById('api-response').innerHTML = '<p style="color: red;">Error fetching API: ' + error.message + '</p>';
+            });
+    </script>
+</body>
+
+</html>

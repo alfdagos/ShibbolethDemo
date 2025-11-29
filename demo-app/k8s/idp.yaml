@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: idp-deployment
+  labels:
+    app: idp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: idp
+  template:
+    metadata:
+      labels:
+        app: idp
+    spec:
+      containers:
+      - name: idp
+        image: kristophjunge/test-saml-idp
+        env:
+        - name: SIMPLESAMLPHP_SP_ENTITY_ID
+          value: https://sp.example.com/shibboleth
+        - name: SIMPLESAMLPHP_SP_ASSERTION_CONSUMER_SERVICE
+          value: http://sp.example.com:8080/Shibboleth.sso/SAML2/POST
+        - name: SIMPLESAMLPHP_BASE_URL
+          value: http://idp.example.com:8081/simplesaml/
+        ports:
+        - containerPort: 8080
+          name: http
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: idp-service
+spec:
+  selector:
+    app: idp
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
