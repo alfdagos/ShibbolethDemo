@@ -26,6 +26,13 @@ data:
         ),
 
     );
+  saml20-sp-remote.php: |
+    <?php
+    $metadata['https://sp.example.com/shibboleth'] = array(
+        'AssertionConsumerService' => 'http://sp.example.com:8080/Shibboleth.sso/SAML2/POST',
+        'SingleLogoutService' => 'http://sp.example.com:8080/Shibboleth.sso/SLO/Redirect',
+        'sign.logout' => true,
+    );
 kind: ConfigMap
 metadata:
   name: idp-config

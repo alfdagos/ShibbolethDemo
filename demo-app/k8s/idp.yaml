@@ -38,6 +38,9 @@ spec:
         - name: idp-config
           mountPath: /var/www/simplesamlphp/config/authsources.php
           subPath: authsources.php
+        - name: idp-config
+          mountPath: /var/www/simplesamlphp/metadata/saml20-sp-remote.php
+          subPath: saml20-sp-remote.php
       volumes:
       - name: idp-config
         configMap:

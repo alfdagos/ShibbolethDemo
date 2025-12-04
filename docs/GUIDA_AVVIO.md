@@ -17,6 +17,16 @@ Crea un cluster k3d mappando la porta 8080 locale al load balancer del cluster (
 sudo k3d cluster create k3s-default --port "8080:80@loadbalancer" --agents 2
 ```
 
+### 1.1 Configurazione Accesso Cluster (Importante)
+
+Poiché il cluster è stato creato con `sudo`, è necessario configurare i permessi per accedere con il tuo utente:
+
+```bash
+mkdir -p ~/.kube
+sudo k3d kubeconfig get k3s-default > ~/.kube/config
+chmod 600 ~/.kube/config
+```
+
 ## 2. Build delle Immagini Docker
 
 Costruisci le immagini per i tre componenti principali. Esegui questi comandi dalla cartella `demo-app`:
@@ -39,6 +49,8 @@ Importa le immagini appena create all'interno del cluster k3d in modo che Kubern
 ```bash
 sudo k3d image import demo-backend:latest demo-frontend:latest demo-sp:latest -c k3s-default
 ```
+
+> **Nota:** Se ricevi errori come `tr: open ... no such file or directory`, è un problema noto di k3d. Riprova il comando o importa le immagini una alla volta.
 
 ## 4. Deploy delle Risorse Kubernetes
 
