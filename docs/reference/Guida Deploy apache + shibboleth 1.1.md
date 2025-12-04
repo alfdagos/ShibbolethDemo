@@ -1,8 +1,8 @@
 # Guida Deploy Apache + Shibboleth su OpenShift
 
 **Versione:** 1.0  
-**Autore:** Accenture  
-**Cliente:** Istat - Istituto Nazionale di Statistica
+**Autore:** Example Vendor  
+**Cliente:** Example Corp - Example Organization
 
 -----
 
@@ -30,19 +30,19 @@ Gli step previsti sono i seguenti:
 | 1 | Using ConfigMaps with application | [Red Hat Documentation](https://www.google.com/search?q=https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html/building_applications/config-maps%23nodes-pods-configmap-overview_config-maps) |
 | 2 | Rilascio\_applicativo\_su\_piattaforme\_Openshift\_v1.1.docx | Documentazione interna |
 
-Per eventuali dubbi o chiarimenti si faccia riferimento a: `middleware.cloud@istat.it`
+Per eventuali dubbi o chiarimenti si faccia riferimento a: `middleware.cloud@example.com`
 
 -----
 
 ## 2\. Flusso CI/CD
 
-Seguendo la modalità standard di sviluppo adottata da ISTAT, che prevede l'integrazione con il sistema ALM, in OpenShift è disponibile un flusso CI/CD dedicato alla build e al rilascio automatico delle applicazioni a microservizi basate su container.
+Seguendo la modalità standard di sviluppo adottata da Example Corp, che prevede l'integrazione con il sistema ALM, in OpenShift è disponibile un flusso CI/CD dedicato alla build e al rilascio automatico delle applicazioni a microservizi basate su container.
 
 Questi container sono gestiti tramite oggetti logici di tipo **deployment**, generati dall'apposita pipeline predisposta a tale scopo. Tutti i rilasci e le modalità di configurazione applicative mostrate nel documento non impattano tali modalità.
 
 > *[Riferimento Immagine: Figura 1 - Flusso CI/CD]*
 
-Per maggiori informazioni riguardo il flusso CI/CD Standard utilizzato da ISTAT, si rimanda al documento censito nella tabella dedicata ai riferimenti (RIF-2).
+Per maggiori informazioni riguardo il flusso CI/CD Standard utilizzato da Example Corp, si rimanda al documento censito nella tabella dedicata ai riferimenti (RIF-2).
 
 -----
 
@@ -180,19 +180,19 @@ Esempio minimale di `httpd.conf`:
 Esempio minimale di `shibboleth2.xml`:
 
 ```xml
-<Site id="1" name="myapp1.istat.it"/>
+<Site id="1" name="myapp1.example.com"/>
 <RequestMap>
-    <Host name="myapp1.istat.it">
+    <Host name="myapp1.example.com">
         <Path name="secure" authType="shibboleth" requireSession="true"/>
     </Host>
-    <Host name="myapp2.istat.it" applicationId="app-spid-asp" authType="shibboleth" requireSession="true"/>
+    <Host name="myapp2.example.com" applicationId="app-spid-asp" authType="shibboleth" requireSession="true"/>
 </RequestMap>
 
-<ApplicationDefaults entityID="https://myapp1.istat.it/">
-    <SessionInitiator type="Chaining" Location="/Login" isDefault="true" id="Login" entityID="https://idp.istat.it/idp/shibboleth">
+<ApplicationDefaults entityID="https://myapp1.example.com/">
+    <SessionInitiator type="Chaining" Location="/Login" isDefault="true" id="Login" entityID="https://idp.example.com/idp/shibboleth">
     
-    <ApplicationOverride id="myapp1" entityID="https://myapp1.istat.it/"/>
-    <ApplicationOverride id="myapp2" entityID="https://myapp2.istat.it/"/>
+    <ApplicationOverride id="myapp1" entityID="https://myapp1.example.com/"/>
+    <ApplicationOverride id="myapp2" entityID="https://myapp2.example.com/"/>
 </ApplicationDefaults>
 ```
 
@@ -232,8 +232,8 @@ Per le rotte sono richieste due configurazioni distinte per tutti gli ambienti (
 
 **Nota per l'ambiente di Produzione (Siti Balbo e Inail):**
 
-  * **Sito Balbo (Principale):** Route esterna `www.istat.it`, Route interna `https://backoffice-nsi.apps.pr1epaas.cloud.istat.it`
-  * **Sito Inail (Secondario):** Route esterna `www.istat.it`, Route interna `https://backoffice-nsi.apps.pr2epaas.cloud.istat.it`
+  * **Sito Balbo (Principale):** Route esterna `www.example.com`, Route interna `https://backoffice-nsi.apps.pr1epaas.cloud.example.com`
+  * **Sito Inail (Secondario):** Route esterna `www.example.com`, Route interna `https://backoffice-nsi.apps.pr2epaas.cloud.example.com`
 
 #### 4.1.1 Configurazione Service
 
