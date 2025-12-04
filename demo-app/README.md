@@ -4,7 +4,14 @@ This project demonstrates a containerized application with Shibboleth authentica
 1.  **SP (Service Provider)**: Apache HTTPD + Shibboleth (Reverse Proxy).
 2.  **Frontend**: Nginx Microservice (Static Content).
 3.  **Backend**: Spring Boot Microservice (API).
-4.  **IDP (Identity Provider)**: A simulated SAML IDP (`kristophjunge/test-saml-idp`).
+4.  **IDP (Identity Provider)**: SimpleSAMLphp (configured via ConfigMap).
+
+## Documentation
+
+For detailed setup instructions and technical documentation, please refer to the `docs/` directory in the root of this repository:
+
+-   [Guida all'Avvio](../../docs/GUIDA_AVVIO.md)
+-   [Documentazione Tecnica](../../docs/DOCUMENTAZIONE_TECNICA.md)
 
 ## Prerequisites
 

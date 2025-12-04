@@ -14,7 +14,6 @@ COPY shibboleth2.xml /etc/shibboleth/shibboleth2.xml
 COPY attribute-map.xml /etc/shibboleth/attribute-map.xml
 COPY pem/ /etc/shibboleth/
 COPY run-httpd /usr/bin/run-httpd
-# index.html removed as it is now in frontend service
 
 # Generate self-signed cert for mod_ssl
 RUN mkdir -p /etc/httpd/tls && \

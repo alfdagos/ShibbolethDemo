@@ -64,11 +64,11 @@
         <h2>User Attributes (from Backend API)</h2>
         <div id="api-response">Loading user data...</div>
 
-        <a href="/Shibboleth.sso/Logout" class="logout">Logout</a>
+        <a href="/Shibboleth.sso/Logout?return=http://sp.example.com:8080/" class="logout">Logout</a>
     </div>
 
     <script>
-        fetch('/api/user')
+                    fetch('/api/user')
             .then(response => {
                 if (!response.ok) throw new Error('Network response was not ok');
                 return response.json();
